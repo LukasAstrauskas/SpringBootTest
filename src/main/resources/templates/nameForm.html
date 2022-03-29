@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+</head>
+<body>
+<header></header>
+
+<article>
+    <h1> Hello! </h1>
+<!--    <p>Guess age: <a href="/message">here</a></p>-->
+    <form action="#" th:action="@{/guess}" th:object="${yourGuess}" method="post">
+        <p>Name: <input type="text" th:field="*{guess}" /></p>
+        <p><input type="submit" value="Let us guess your age." /> <input type="reset" value="Reset" /></p>
+    </form>
+    <p><a href="/list">Show all names in SQLite.</a></p>
+
+</article>
+
+<footer></footer>
+</body>
+</html>

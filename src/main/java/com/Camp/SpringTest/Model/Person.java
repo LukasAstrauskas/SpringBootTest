@@ -1,25 +1,24 @@
 package com.Camp.SpringTest.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Agify {
+import java.util.UUID;
+@Entity
+public class Person {
     private String name;
     private int age;
+    @Id
     private int count;
 
-    public Agify() {
+    public Person() {
     }
 
-    public Agify(String name) {
-        this.name = name;
-    }
-
-    public Agify(String name, int age, int count) {
+    public Person(String name, int age, int count) {
         this.name = name;
         this.age = age;
         this.count = count;
     }
+
 
     public String getName() {
         return name;
@@ -43,11 +42,5 @@ public class Agify {
 
     public void setCount(int count) {
         this.count = count;
-    }
-
-    @Override
-    public String toString() {
-        String s = "Name: " + name + ", age: " + age + ", count:" + count + ".";
-        return s;
     }
 }

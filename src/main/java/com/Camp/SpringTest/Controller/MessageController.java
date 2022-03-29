@@ -1,34 +1,58 @@
 package com.Camp.SpringTest.Controller;
 
 import com.Camp.SpringTest.Model.Agify;
+import com.Camp.SpringTest.Model.Guess;
+import com.Camp.SpringTest.Model.Person;
+import com.Camp.SpringTest.dao.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Controller
-public class MessageController {
+public class MessageController implements WebMvcConfigurer {
+
+    @Autowired
+    PersonService service;
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/noName").setViewName("noName");
+    }
 
+    @GetMapping("/")
+    public String indexNameInput(Model model) {
+        model.addAttribute("yourGuess", new Guess());
 
-    @GetMapping("/message")
-    public String getMessage(Model model) {
+        return "nameForm";
+    }
 
-        Agify agify = restTemplate.getForObject("https://api.agify.io/?name=Anderson", Agify.class);
-        String string = "No Value.";
-        if (agify != null) {
-            string = agify.toString();
+    @PostMapping("/guess")
+    public String getMessage(@ModelAttribute Guess guess, Model model) {
+
+        if (guess.getGuess().equals("")) {
+            return "/";
         }
-        model.addAttribute("person", agify);
+        Agify agify = restTemplate.getForObject(
+                "https://api.agify.io/?name=" +  guess.getGuess(), Agify.class
+        );
+        Person person = service.addPerson(agify);
+        model.addAttribute("agify", person);
+        return "guessForm";
+    }
 
-        return "messagePage";
+    @GetMapping("/list")
+    public String showList(Model model) {
+        model.addAttribute("persons", service.getAll());
+        return "list";
     }
 
 }

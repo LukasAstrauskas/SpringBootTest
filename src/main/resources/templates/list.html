@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title></title>
+</head>
+<body>
+<header></header>
+
+<article>
+    <h2>List</h2>
+
+    <table>
+        <thead>
+        <tr>
+            <th> Name</th>
+            <th> Age</th>
+            <th> Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${persons}">
+            <td><span th:text="${p.name}"> Name </span></td>
+            <td><span th:text="${p.age}"> Age </span></td>
+            <td><span th:text="${p.count}"> Count </span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p><a href="/">Another name-age guess.</a></p>
+</article>
+
+<footer></footer>
+</body>
+</html>

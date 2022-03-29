@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<!--<p th:text="'Hello, ' + ${agify.name} + '.'"></p>-->
+<!--<p th:text="'I guess your age is: ' + ${agify.age} + '.'"></p>-->
+
+
+<p th:text="'Name: ' + ${agify.name}"></p>
+<p th:text="'I guess your age is: '+${agify.age}+' years.'"></p>
+<p>Count: <a th:text="${agify.count}"></a>.</p>
+<a href="/">Another name-age guess.</a>
+</body>
+</html>
